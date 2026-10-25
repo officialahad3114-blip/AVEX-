@@ -19,16 +19,14 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Install and Run Gradle 8.2
-      run: |
-        wget -q https://services.gradle.org/distributions/gradle-8.2-bin.zip
-        unzip -q gradle-8.2-bin.zip
-        export PATH=$PWD/gradle-8.2/bin:$PATH
-        export ANDROID_HOME=$ANDROID_SDK_ROOT
-        gradle assembleDebug --no-daemon --stacktrace
+    - name: Build with Android Action
+      uses: kevin-david/android-build-action@v1.4.1
+      with:
+        build-type: apk
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: Avex-Jarvis-APK
         path: app/build/outputs/apk/debug/*.apk
+        
