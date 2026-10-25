@@ -19,14 +19,14 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Build with Android Action
-      uses: kevin-david/android-build-action@v1.4.1
-      with:
-        build-type: apk
+    - name: Generate Wrapper and Build APK
+      run: |
+        gradle wrapper --gradle-version 8.2
+        chmod +x gradlew
+        ./gradlew assembleDebug --no-daemon --stacktrace
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: Avex-Jarvis-APK
         path: app/build/outputs/apk/debug/*.apk
-        
